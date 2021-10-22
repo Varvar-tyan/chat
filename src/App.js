@@ -5,8 +5,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 function App() {
   return (
     <>
-      <CssBaseline />
+      <CssBaseline>
       <Main />
+      </ CssBaseline>
     </>
   )
 }
