@@ -1,6 +1,7 @@
 import { List, Typography, Box, Avatar, Badge, ListItemButton } from '@mui/material';
 import { useState } from 'react';
 import { stringAvatar } from '../../../helpers/stringToAvatarColor';
+import { Link } from 'react-router-dom';
 import styles from './dialogs-window-styles';
 
 const DialogsWindow = () => {
@@ -12,10 +13,12 @@ const DialogsWindow = () => {
     return (
         <Box sx={styles.dialogsListContainer}>
             <List disablePadding>
-                <ListItemButton 
-                divider
-                selected={selectedIndex === 0}
-                onClick={(e) => handleListItemClick(e, 0)}>
+                <ListItemButton
+                    component={Link}
+                    to="/main/dialog"
+                    divider
+                    selected={selectedIndex === 0}
+                    onClick={(e) => handleListItemClick(e, 0)}>
                     <Box sx={styles.dialogItemContainer}>
                         <Avatar {...stringAvatar('Varg Vikernes')} />
                         <Box sx={styles.dialogItemInfoContainer}>
@@ -36,10 +39,12 @@ const DialogsWindow = () => {
                         </Box>
                     </Box>
                 </ListItemButton>
-                <ListItemButton 
-                divider
-                selected={selectedIndex === 1}
-                onClick={(e) => handleListItemClick(e, 1)}>
+                <ListItemButton
+                    component={Link}
+                    to="/main/dialog"
+                    divider
+                    selected={selectedIndex === 1}
+                    onClick={(e) => handleListItemClick(e, 1)}>
                     <Box sx={styles.dialogItemContainer}>
                         <Avatar {...stringAvatar('Peter Steel')} />
                         <Box sx={styles.dialogItemInfoContainer}>
@@ -60,10 +65,12 @@ const DialogsWindow = () => {
                         </Box>
                     </Box>
                 </ListItemButton>
-                <ListItemButton 
-                divider
-                selected={selectedIndex === 2}
-                onClick={(e) => handleListItemClick(e, 2)}>
+                <ListItemButton
+                    component={Link}
+                    to="/main/dialog"
+                    divider
+                    selected={selectedIndex === 2}
+                    onClick={(e) => handleListItemClick(e, 2)}>
                     <Box sx={styles.dialogItemContainer}>
                         <Avatar {...stringAvatar('Alexi Laiho')} />
                         <Box sx={styles.dialogItemInfoContainer}>
@@ -84,10 +91,12 @@ const DialogsWindow = () => {
                         </Box>
                     </Box>
                 </ListItemButton>
-                <ListItemButton 
-                divider
-                selected={selectedIndex === 3}
-                onClick={(e) => handleListItemClick(e, 3)}>
+                <ListItemButton
+                    component={Link}
+                    to="/main/dialog"
+                    divider
+                    selected={selectedIndex === 3}
+                    onClick={(e) => handleListItemClick(e, 3)}>
                     <Box sx={styles.dialogItemContainer}>
                         <Avatar {...stringAvatar('Jjmmy Pop')} />
                         <Box sx={styles.dialogItemInfoContainer}>

@@ -1,8 +1,19 @@
+import imageDark from '../../../images/back_satan.jpg'
+import imageLight from '../../../images/background_light.jpg'
+
+let isDark = true
+
 const styles = {
     messageWindowMessagesContainer: {
         flexGrow: 2,
         height: '500px',
         overflowY: 'auto',
+        backgroundImage: `url(${isDark ? imageDark : imageLight})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        position: 'relative',
+        zIndex: '0',
         '&::-webkit-scrollbar': {
             width: '0.4em'
           },
@@ -11,7 +22,7 @@ const styles = {
             webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,.1)',
+            backgroundColor: 'rgba(255,255,255,.3)',
           }
     },
     messageYou: {
@@ -27,7 +38,7 @@ const styles = {
         px: 1.3,
         py: 1,
         pb: 0.3,
-        bgcolor: '#cae7ff',
+        bgcolor: 'background.messageColor',
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         borderBottomLeftRadius: 13,
@@ -39,7 +50,7 @@ const styles = {
         px: 1.3,
         py: 1,
         pb: 0.3,
-        bgcolor: '#eee',
+        bgcolor: 'background.messageDark',
         borderTopLeftRadius: 13,
         borderTopRightRadius: 13,
         borderBottomRightRadius: 13,
@@ -51,7 +62,6 @@ const styles = {
         fontWeight: 'light',
         alignSelf: 'flex-end'
     },
-
     messageInputCont: {
         display: 'flex',
         pt: 2
