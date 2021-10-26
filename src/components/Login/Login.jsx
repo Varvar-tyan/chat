@@ -1,26 +1,19 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { loginTHC } from '../../redux/reducers/authReducer';
 
-const Login = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+const Login = ({onLogin}) => {
+const [login, setLogin] = useState('')
+const [password, setPassword] = useState('')
 
     return (
         <Container component="main" maxWidth="xs">
@@ -38,16 +31,18 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="login"
+              label="Login"
+              name="login"
+              autoComplete="login"
               autoFocus
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -58,16 +53,14 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => onLogin(login, password)}
             >
               Log In
             </Button>
@@ -84,4 +77,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default connect(null, {onLogin: loginTHC})(Login)

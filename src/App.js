@@ -1,24 +1,41 @@
 import './App.css';
 import Main from './components/Main/Main';
 import CssBaseline from '@mui/material/CssBaseline';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
+import { Redirect } from 'react-router';
+import { connect, Provider } from 'react-redux';
+import { store } from './redux/store';
 
-function App() {
+function App({ isLoggedIn }) {
   return (
     <>
-      <BrowserRouter history={createHistory()}>
-        <CssBaseline>
-          <Route path="/main" component={Main} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
-        </CssBaseline>
-      </BrowserRouter>
+      <CssBaseline />
+        {isLoggedIn && <Redirect to="/main" />}
 
+        <Route path="/main" component={Main} />
+        <Route path="/" exact component={Login} />
+        <Route path="/signup" component={SignUp} />
     </>
   )
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn
+})
+
+const AppContainer = connect(mapStateToProps, null)(App);
+
+function mainApp() {
+  return (
+    <Provider store={store}>
+      <Router history={createHistory()}>
+        <AppContainer />
+      </Router>
+    </Provider>
+  )
+}
+
+export default mainApp;

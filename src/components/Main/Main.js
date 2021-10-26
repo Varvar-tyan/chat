@@ -1,9 +1,10 @@
 import { Container, Grid, IconButton, TextField, List, ListItem, Typography, Box, Avatar, Badge, ListItemButton, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import styles from './main-styles';
-import Header from './Header/Header';
 import MessagesWindow from './MessagesWindow/MessagesWindow';
 import DialogsWindow from './DialogsWindow/DialogsWindow';
 import { Route } from 'react-router-dom';
+import DialogsHeader from './DialogsHeader/DialogsHeader';
+import MessagesHeader from './MessagesHeader/MessagesHeader';
 
 const darkTheme = createTheme({
     palette: {
@@ -30,12 +31,13 @@ const Main = () => {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <Container disableGutters sx={styles.container}>
-                <Header />
                 <Grid sx={styles.gridContainer} container>
                     <Grid item xs={12} md={3.5}>
+                        <DialogsHeader />
                         <DialogsWindow />
                     </Grid>
                     <Grid item xs={12} md={8.5} sx={styles.messagesWindowContainer}>
+                        <MessagesHeader />
                         <Route path="/main" exact component={() => <div> Select a chat to start messaging </div>} />
                         <Route path="/main/dialog" component={MessagesWindow} />
                     </Grid>

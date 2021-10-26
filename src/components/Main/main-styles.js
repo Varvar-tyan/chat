@@ -11,7 +11,7 @@ const styles = {
         justifyContent: 'flex-end'
     },
     gridContainer: {
-        height: '90%',
+        height: '98%',
     },
     messagesWindowContainer: {
         display: 'flex',
