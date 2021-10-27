@@ -12,10 +12,6 @@ const styles = {
     },
     gridContainer: {
         height: '98%',
-    },
-    messagesWindowContainer: {
-        display: 'flex',
-        flexDirection: 'column',
     }
 }
 

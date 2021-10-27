@@ -32,6 +32,16 @@ export const promiseLoginTHC = (login, password) => {
         { login, password }))
 }
 
+export const promiseRegisterTHC = (login, password) => {
+    return promiseTHC('register', chatGQL(`mutation register($login:String, $password:String) {
+        UserUpsert(user:{
+          login:$login, password:$password
+        })
+        {_id login}
+      }`,
+        { UserUpsert: '', login, password }))
+}
+
 // const actionCategoryById = (_id) =>
 //     actionPromise('catById', shopGQL(`
 //     query catById($query:String){

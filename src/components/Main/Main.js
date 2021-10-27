@@ -1,10 +1,10 @@
 import { Container, Grid, IconButton, TextField, List, ListItem, Typography, Box, Avatar, Badge, ListItemButton, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import styles from './main-styles';
-import MessagesWindow from './MessagesWindow/MessagesWindow';
-import DialogsWindow from './DialogsWindow/DialogsWindow';
 import { Route } from 'react-router-dom';
-import DialogsHeader from './DialogsHeader/DialogsHeader';
-import MessagesHeader from './MessagesHeader/MessagesHeader';
+import DialogsWindow from './DialogsWindow/DialogsWindow';
+import MessagesWindow from './MessagesWindow/MessagesWindow';
+import Placeholder from './Placeholder/Placeholder';
+import {connect} from 'react-redux';
 
 const darkTheme = createTheme({
     palette: {
@@ -16,7 +16,7 @@ const darkTheme = createTheme({
     }
   });
 
-const LightTheme = createTheme({
+const lightTheme = createTheme({
     palette: {
       mode: 'light',
       background: {
@@ -26,25 +26,23 @@ const LightTheme = createTheme({
     },
   });
 
-const Main = () => {
+const Main = ({isDarkMode}) => {
     return (
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
             <CssBaseline />
             <Container disableGutters sx={styles.container}>
                 <Grid sx={styles.gridContainer} container>
-                    <Grid item xs={12} md={3.5}>
-                        <DialogsHeader />
-                        <DialogsWindow />
-                    </Grid>
-                    <Grid item xs={12} md={8.5} sx={styles.messagesWindowContainer}>
-                        <MessagesHeader />
-                        <Route path="/main" exact component={() => <div> Select a chat to start messaging </div>} />
-                        <Route path="/main/dialog" component={MessagesWindow} />
-                    </Grid>
+                    <DialogsWindow />
+                    <Route path="/main" exact component={Placeholder} />
+                    <Route path="/main/dialog" component={MessagesWindow} />
                 </Grid>
             </Container>
         </ThemeProvider>
     )
 }
 
-export default Main;
+const mapStateToProps = (state) => ({
+    isDarkMode: state.mode.isDarkMode
+})
+
+export default connect(mapStateToProps, null)(Main);

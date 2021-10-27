@@ -12,8 +12,8 @@ import { connect } from 'react-redux';
 import { loginTHC } from '../../redux/reducers/authReducer';
 
 const Login = ({onLogin}) => {
-const [login, setLogin] = useState('')
-const [password, setPassword] = useState('')
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
     return (
         <Container component="main" maxWidth="xs">
@@ -31,7 +31,7 @@ const [password, setPassword] = useState('')
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
-          <Box component="form" sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={e => e.preventDefault()} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -58,6 +58,7 @@ const [password, setPassword] = useState('')
             />
             <Button
               fullWidth
+              type="submit"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={() => onLogin(login, password)}

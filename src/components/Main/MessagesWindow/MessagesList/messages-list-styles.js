@@ -1,19 +1,11 @@
-import imageDark from '../../../images/back_satan.jpg'
-import imageLight from '../../../images/background_light.jpg'
-
-let isDark = true
-
 const styles = {
     messageWindowMessagesContainer: {
         flexGrow: 2,
         height: '500px',
         overflowY: 'auto',
-        backgroundImage: `url(${isDark ? imageDark : imageLight})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        position: 'relative',
-        zIndex: '0',
         '&::-webkit-scrollbar': {
             width: '0.4em'
           },

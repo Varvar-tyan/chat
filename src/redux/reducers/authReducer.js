@@ -1,4 +1,4 @@
-import { promiseLoginTHC } from "../queries/queries"
+import { promiseLoginTHC, promiseRegisterTHC } from "../queries/queries"
 
 const jwt_decode = (jwt) => {
     let payload = jwt.split('.')
@@ -21,13 +21,13 @@ export function authReducer(state, action={}) {
     if (action.type === 'LOGOUT') {
         console.log('ЛОГАУТ')
         delete localStorage.authToken
-        return {}
+        return {isLoggedIn: false}
     }
     return state
 }
 
 const loginAC = (jwt) => ({type: 'LOGIN', jwt})
-const logoutAC = () => ({type: 'LOGOUT'})
+export const logoutAC = () => ({type: 'LOGOUT'})
 
 export const loginTHC = (login, password) => {
     return async (dispatch) => {
@@ -37,4 +37,12 @@ export const loginTHC = (login, password) => {
         }
     }
 }
-    
+
+export const registerTHC = (login, password) => {
+    return async (dispatch) => {
+        let payload = await dispatch(promiseRegisterTHC(login, password))
+        if (payload) {
+            dispatch(loginTHC(login, password))
+        }
+    }
+}

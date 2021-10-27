@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -8,17 +7,14 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { registerTHC } from '../../redux/reducers/authReducer';
 
-const SignUp = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+const SignUp = ({onSignUp}) => {
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
+  const [verifiedPassword, setVerifiedPassword] = useState('')
 
     return (
         <Container component="main" maxWidth="xs">
@@ -36,16 +32,18 @@ const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={e => e.preventDefault()} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="login"
                   label="Login"
-                  name="email"
-                  autoComplete="email"
+                  name="login"
+                  autoFocus
+                  value={login}
+                  onChange={(e) => setLogin(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -56,26 +54,31 @@ const SignUp = () => {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
+                  name="passwordVerify"
                   label="Verify Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  id="passwordVerify"
+                  helperText="Passwords must match."
+                  value={verifiedPassword}
+                  onChange={(e) => setVerifiedPassword(e.target.value)}
                 />
               </Grid>
             </Grid>
             <Button
               type="submit"
+              disabled={password !== verifiedPassword}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={() => onSignUp(login, password)}
             >
               Sign Up
             </Button>
@@ -92,4 +95,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp;
+export default connect(null, {onSignUp: registerTHC})(SignUp);
