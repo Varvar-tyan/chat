@@ -1,8 +1,7 @@
 import styles from './placeholder-styles.js';
 import { Box, Chip, Grid } from '@mui/material';
 import imageDark from '../../../images/back_satan.jpg';
-import imageDoom from '../../../images/back_doomer.jpg';
-import { shadows } from '@mui/system';
+import imageDoom from '../../../images/back_dooml.jpg';
 import {connect} from 'react-redux';
 
 const Placeholder = ({isDarkMode}) => {

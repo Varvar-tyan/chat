@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, IconButton, ListItemText, ListItemIcon, Switch } from '@mui/material';
+import { AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Search, SearchIconWrapper, StyledInputBase } from '../../../common/Search';

@@ -1,4 +1,4 @@
-import { Container, Grid, IconButton, TextField, List, ListItem, Typography, Box, Avatar, Badge, ListItemButton, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { Container, Grid, createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import styles from './main-styles';
 import { Route } from 'react-router-dom';
 import DialogsWindow from './DialogsWindow/DialogsWindow';

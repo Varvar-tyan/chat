@@ -14,7 +14,7 @@ const getGQL = url => {
             }).then(resp => resp.json())
             .then(data => {
                 if ("errors" in data) {
-                    throw new Error('ашипка, угадывай што не так')
+                    throw new Error(JSON.stringify(data.errors, null, 4))
                 }
                 else {
                     return data.data[Object.keys(variables)[0]]
@@ -41,6 +41,31 @@ export const promiseRegisterTHC = (login, password) => {
       }`,
         { UserUpsert: '', login, password }))
 }
+
+export const promiseGetUsersTHC = () => {
+    return promiseTHC('users', chatGQL(`query findUsers{
+        UserFind(query: "[{}]"){
+          _id login nick avatar {
+            _id url
+          }
+        }
+      }`,
+      {UserFind: ''}))
+}
+
+export const promiseNewChatTHC = (title, _id) => {
+    return promiseTHC('newChat', chatGQL(`mutation createChat($title: String, $members:[UserInput]){
+        ChatUpsert(chat:{
+          title: $title, members:$members
+        }) {
+          _id createdAt lastModified owner {
+            _id login
+          } members {
+            _id login
+          }
+        }
+      }`, {ChatUpsert: '', title, members: [{_id}]}))
+    }
 
 // const actionCategoryById = (_id) =>
 //     actionPromise('catById', shopGQL(`

@@ -10,6 +10,7 @@ const DialogsList = () => {
     const handleListItemClick = (e, index) => {
         setSelectedIndex(index);
     }
+    
     return (
         <Box sx={styles.dialogsListContainer}>
             <List disablePadding>

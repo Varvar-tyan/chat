@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import styles from './messages-list-styles';
 import imageDark from '../../../../images/back_satan.jpg';
-import imageDoom from '../../../../images/back_doomer.jpg';
+import imageDoom from '../../../../images/back_dooml.jpg';
 import { connect } from 'react-redux';
 
 const MessagesList = ({isDarkMode}) => {

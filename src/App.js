@@ -13,7 +13,7 @@ function App({ isLoggedIn }) {
   return (
     <>
       <CssBaseline />
-        {isLoggedIn && <Redirect to="/main" />}
+        {isLoggedIn && <Route exact path="/" render={() => <Redirect to="/main"/>} />}
 
         <Route path="/main" component={Main} />
         <Route path="/" exact component={Login} />
