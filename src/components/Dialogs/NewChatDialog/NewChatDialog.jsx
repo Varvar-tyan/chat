@@ -23,7 +23,7 @@ const NewChat = ({users, setUsers, ...props}) => {
 
     return (
         <>
-            <TextField id="chat-name" label="Chat Name" variant="outlined" sx={{mb: 2, width: '100%'}} value={props.title} onChange={(e) => props.setTitle(e.target.value)} />
+            <TextField id="chat-name" label="Chat Title" variant="outlined" sx={{mb: 2, width: '100%'}} value={props.title} onChange={(e) => props.setTitle(e.target.value)} />
             <Search sx={{ mb: 1, mr: 0 }}>
                 <SearchIconWrapper>
                     <SearchIcon />
@@ -66,9 +66,15 @@ const User = (props) => {
 const NewChatDialog = (props) => {
     const { onClose, open } = props
 
-    const [title, setTitle] = useState('my_new_chat')
+    const [title, setTitle] = useState('my new chat')
     const [memberId, setMemberId] = useState('')
     let history = useHistory()
+
+    const handleCloseClick = () => {
+        onClose()
+        setTitle('my new chat')
+        setMemberId('')
+    }
 
     const handleDoneClick = async () => {
         let result = await props.createNewChat(title, memberId)
@@ -76,16 +82,18 @@ const NewChatDialog = (props) => {
 
         if (result._id) {
             onClose()
+            setTitle('my new chat')
+            setMemberId('')
             history.push('dialog/' + memberId)
         }
     }
     return (
-        <Dialog onClose={() => onClose()} open={open} maxWidth="xs" fullWidth>
+        <Dialog onClose={handleCloseClick} open={open} maxWidth="xs" fullWidth>
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <DialogTitle>
                     New Chat
                 </DialogTitle>
-                <IconButton sx={{ mr: 1 }} onClick={onClose}>
+                <IconButton sx={{ mr: 1 }} onClick={handleCloseClick}>
                     <CloseIcon />
                 </IconButton>
             </Box>

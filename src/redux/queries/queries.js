@@ -54,7 +54,7 @@ export const promiseGetUsersTHC = () => {
 }
 
 export const promiseNewChatTHC = (title, _id) => {
-    return promiseTHC('newChat', chatGQL(`mutation createChat($title: String, $members:[UserInput]){
+  return promiseTHC('newChat', chatGQL(`mutation createChat($title: String, $members:[UserInput]){
         ChatUpsert(chat:{
           title: $title, members:$members
         }) {
@@ -64,8 +64,16 @@ export const promiseNewChatTHC = (title, _id) => {
             _id login
           }
         }
-      }`, {ChatUpsert: '', title, members: [{_id}]}))
+      }`, { ChatUpsert: '', title, members: [{ _id }] }))
+}
+
+export const promiseGetChatsTHC = (myId) => {
+  return promiseTHC('myChats', chatGQL(`query findChats($id:String){
+    ChatFind(query: $id){
+      _id createdAt lastModified title members {_id login} owner {_id login} messages {_id createdAt owner {login} text media {_id url}}
     }
+  }`, {ChatFind: '', id: JSON.stringify([{"members._id": myId}])}))
+}
 
 // const actionCategoryById = (_id) =>
 //     actionPromise('catById', shopGQL(`

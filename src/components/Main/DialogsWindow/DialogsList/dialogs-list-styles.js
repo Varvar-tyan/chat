@@ -1,16 +1,16 @@
 const styles = {
     dialogsListContainer: {
-        maxHeight: '90vh',
+        maxHeight: '88vh',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
-            width: '0.4em'
+            width: '0.3em'
           },
           '&::-webkit-scrollbar-track': {
             boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
             webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,.1)',
+            backgroundColor: 'rgba(255,255,255,.1)',
           }
     },
     dialogItemContainer: {
