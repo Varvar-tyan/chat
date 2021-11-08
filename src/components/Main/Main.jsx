@@ -34,7 +34,7 @@ const Main = ({isDarkMode}) => {
                 <Grid sx={styles.gridContainer} container>
                     <DialogsWindow />
                     <Route path="/main" exact component={Placeholder} />
-                    <Route path="/main/dialog" component={MessagesWindow} />
+                    <Route path="/main/dialog/:id" component={MessagesWindow} />
                 </Grid>
             </Container>
         </ThemeProvider>

@@ -23,7 +23,7 @@ const Dialog = ({chat, ...props}) => {
                     </Box>
                     <Box sx={styles.dialogItemInfo}>
                         <Box sx={styles.messageWrapper}>
-                            <Typography variant="body2" noWrap sx={styles.message}>{chat.messages ? chat.messages[chat.messages.length - 1] : 'No messages here yet'}</Typography>
+                            <Typography variant="body2" noWrap sx={styles.message}>{chat.messages ? chat.messages[chat.messages.length - 1] : 'No messages here yet...'}</Typography>
                         </Box>
                         <Box>
                             <Badge badgeContent={chat.messages && chat.messages.length} color="primary" sx={{ mr: 2, mb: 0.8 }}></Badge>

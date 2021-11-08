@@ -1,18 +1,35 @@
 import * as React from 'react';
-import {IconButton, TextField, List, ListItem, Typography, Box } from '@mui/material';
+import { IconButton, TextField, List, ListItem, Typography, Box, Chip } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import styles from './messages-list-styles';
 import imageDark from '../../../../images/back_satan.jpg';
 import imageDoom from '../../../../images/back_dooml.jpg';
 import { connect } from 'react-redux';
+import Placeholder from '../../Placeholder/Placeholder';
 
-const MessagesList = ({isDarkMode}) => {
+const Message = () => {
+    return (
+        <ListItem sx={styles.messageCompanion}>
+            <Box sx={styles.messageBubbleCompanion}>
+                <Typography variant="body2">I'm a message</Typography>
+                <Typography component="span" sx={styles.dateCaption}>3 Sep 17:46</Typography>
+            </Box>
+
+        </ListItem>
+    )
+}
+
+const MessagesList = ({ isDarkMode, currentChat, myId }) => {
+    console.log(currentChat, myId)
     return (
         <>
-            <Box sx={{...styles.messageWindowMessagesContainer, backgroundImage: `url(${isDarkMode ? imageDark : imageDoom})`,}}>
+            <Box sx={{ ...styles.messageWindowMessagesContainer, backgroundImage: `url(${isDarkMode ? imageDark : imageDoom})`, }}>
                 <List>
-                    <ListItem sx={styles.messageCompanion}>
+                    {currentChat?.messages ? 
+                    currentChat.messages.map(() => <Message />) :
+                    <div style={{textAlign: 'center', marginBottom: '10px'}}><Chip label="No messages here :(" variant="filled" sx={{color: '#fff'}} /></div>}
+                    {/* <ListItem sx={styles.messageCompanion}>
                         <Box sx={styles.messageBubbleCompanion}>
                             <Typography variant="body2">I'm a message</Typography>
                             <Typography component="span" sx={styles.dateCaption}>3 Sep 17:46</Typography>
@@ -158,17 +175,18 @@ const MessagesList = ({isDarkMode}) => {
                             <Typography variant="body2">you're a hero</Typography>
                             <Typography component="span" sx={styles.dateCaption}>3 Sep 17:46</Typography>
                         </Box>
-                    </ListItem>
+                    </ListItem> */}
 
                 </List>
             </Box>
+            
             <Box sx={styles.messageInputCont}>
                 <IconButton edge="start" color="inherit" aria-label="menu" sx={styles.attachIcon}>
                     <AttachFileIcon />
                 </IconButton>
                 <TextField
                     id="standard-textarea"
-                    placeholder="Write your message here...."
+                    placeholder="Write your message..."
                     multiline
                     variant="standard"
                     maxRows={6}

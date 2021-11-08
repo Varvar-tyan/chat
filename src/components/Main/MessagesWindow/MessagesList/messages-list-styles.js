@@ -3,6 +3,8 @@ const styles = {
         flexGrow: 2,
         height: '500px',
         overflowY: 'auto',
+        display: 'flex',
+        flexDirection: 'column-reverse',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

@@ -75,6 +75,16 @@ export const promiseGetChatsTHC = (myId) => {
   }`, {ChatFind: '', id: JSON.stringify([{"members._id": myId}])}))
 }
 
+export const promiseChatByIdTHC = (id) => {
+  return promiseTHC('chat', chatGQL(`query findExactChat($chatId:String){
+    ChatFindOne(query: $chatId){
+      _id createdAt lastModified owner {_id login} title members {
+        _id login
+      } messages {_id owner {_id login } text  createdAt forwarded {_id owner {login}}
+      }
+    }
+  }`, {ChatFindOne: '', chatId: JSON.stringify([{_id: id}])}))
+}
 // const actionCategoryById = (_id) =>
 //     actionPromise('catById', shopGQL(`
 //     query catById($query:String){
