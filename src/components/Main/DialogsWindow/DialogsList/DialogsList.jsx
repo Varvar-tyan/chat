@@ -4,9 +4,12 @@ import styles from './dialogs-list-styles';
 import { connect } from 'react-redux';
 import { setChatsTHC } from '../../../../redux/reducers/chatsReducer';
 import Dialog from './Dialog';
+import { useHistory } from 'react-router';
 
-const DialogsList = (props) => {
-    const [selectedIndex, setSelectedIndex] = useState('')
+const DialogsList = ({currentChat, ...props}) => {
+    const history = useHistory()
+    const [selectedIndex, setSelectedIndex] = useState(currentChat ? currentChat._id : 
+        history.location.pathname.slice(13).length > 0 ? history.location.pathname.slice(13) : '')
 
     const handleListItemClick = (index) => {
         setSelectedIndex(index);
@@ -15,6 +18,10 @@ const DialogsList = (props) => {
     useEffect(() => {
         props.setChats(props.myId)
     }, [])
+
+    useEffect(() => {
+        currentChat && setSelectedIndex(currentChat._id)
+    }, [currentChat])
 
     return (
         <Box sx={styles.dialogsListContainer}>
@@ -30,7 +37,8 @@ const DialogsList = (props) => {
 
 const mapStateToProps = (state) => ({
     chats: state.chats.chats,
-    myId: state.auth.payload.sub.id
+    myId: state.auth.payload.sub.id,
+    currentChat: state.chats.currentChat
 })
 
 export default connect(mapStateToProps, { setChats: setChatsTHC })(DialogsList);

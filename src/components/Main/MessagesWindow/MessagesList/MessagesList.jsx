@@ -33,7 +33,7 @@ const MessagesList = ({ isDarkMode, myId, messages, setMessages, addMessage, cha
     const handleSendClick = async () => {
         let result = await addMessage(messageText, chatId)
 
-        if (result._id) {
+        if (result?._id) {
             setMessages(chatId)
             setMessageText('')
             setChats(myId)

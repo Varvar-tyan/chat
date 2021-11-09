@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { setUsersTHC } from '../../../redux/reducers/usersReducer';
 import { promiseNewChatTHC } from '../../../redux/queries/queries';
 import { useHistory } from 'react-router';
-import { setChatsTHC } from '../../../redux/reducers/chatsReducer';
+import { setChatsTHC, setChatTHC } from '../../../redux/reducers/chatsReducer';
 
 const NewChat = ({users, setUsers, ...props}) => {
     const [searchRequest, setSearchRequest] = useState('')
@@ -86,8 +86,9 @@ const NewChatDialog = (props) => {
             setMemberId('')
 
             props.setChats(props.myId)
+            props.setChat(result._id)
 
-            history.push('/main/dialog/' + memberId)
+            history.push('/main/dialog/' + result._id)
         }
     }
     return (
@@ -117,4 +118,4 @@ const mapStateToProps = (state) => ({
     myId: state.auth.payload.sub.id
 })
 
-export default connect(mapStateToProps, {createNewChat: promiseNewChatTHC, setChats: setChatsTHC})(NewChatDialog);
+export default connect(mapStateToProps, {createNewChat: promiseNewChatTHC, setChats: setChatsTHC, setChat: setChatTHC})(NewChatDialog);

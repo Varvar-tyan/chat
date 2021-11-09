@@ -2,7 +2,7 @@ export const refactorTime = (timestamp) => {
     let date = new Date(+timestamp)
     let hours = date.getHours()
     let minutes = date.getMinutes()
-    return `${hours}:${minutes}`
+    return `${hours}:${minutes.toString().length < 2 ? '0' + minutes : minutes}`
 }
 
 export const refactorMessageTime = (timestamp) => {
@@ -12,5 +12,5 @@ export const refactorMessageTime = (timestamp) => {
     let day = date.getDate()
     let hours = date.getHours()
     let minutes = date.getMinutes()
-    return `${day} ${months[month]} ${hours}:${minutes}`
+    return `${day} ${months[month]} ${hours}:${minutes.toString().length < 2 ? '0' + minutes : minutes}`
 }

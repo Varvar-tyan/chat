@@ -5,14 +5,14 @@ import styles from './dialogs-list-styles';
 import { refactorTime } from '../../../../helpers/refactorTime';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { setMessagesTHC } from '../../../../redux/reducers/messagesReducer';
+import { promiseGetChatMessagesTHC } from '../../../../redux/queries/queries';
 
 const Dialog = ({chat: {lastModified, ...chat}, setMessages, ...props}) => {
     const [lastMessage, setLastMessage] = useState('')
 
     useEffect(async () => {
         const messagesResult = await setMessages(chat._id)
-        setLastMessage(messagesResult.messages[messagesResult.messages.length-1]?.text)
+        setLastMessage(messagesResult[messagesResult.length-1]?.text)
     }, [lastModified])
 
     return (
@@ -47,4 +47,4 @@ const Dialog = ({chat: {lastModified, ...chat}, setMessages, ...props}) => {
 }
 
 
-export default connect(null, {setMessages: setMessagesTHC})(Dialog);
+export default connect(null, {setMessages: promiseGetChatMessagesTHC})(Dialog);
