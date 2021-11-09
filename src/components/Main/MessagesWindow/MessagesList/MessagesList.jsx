@@ -5,7 +5,7 @@ import styles from './messages-list-styles';
 import imageDark from '../../../../images/back_satan.jpg';
 import imageDoom from '../../../../images/back_dooml.jpg';
 import { connect } from 'react-redux';
-import { refactorMessageTime } from '../../../../helpers/refactorTime';
+import { refactorTime } from '../../../../helpers/refactorTime';
 import { setMessagesTHC } from '../../../../redux/reducers/messagesReducer';
 import { promiseNewMessageTHC } from '../../../../redux/queries/queries';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ const Message = ({ message, myId }) => {
                 styles.messageBubbleYou :
                 styles.messageBubbleCompanion}>
                 <Typography variant="body2">{message.text}</Typography>
-                <Typography component="span" sx={styles.dateCaption}>{refactorMessageTime(message.createdAt)}</Typography>
+                <Typography component="span" sx={styles.dateCaption}>{refactorTime(message.createdAt)}</Typography>
             </Box>
 
         </ListItem>

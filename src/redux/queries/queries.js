@@ -23,7 +23,7 @@ const getGQL = url => {
     }
 }
 
-const chatGQL = getGQL('http://chat.fs.a-level.com.ua/graphql')
+export const chatGQL = getGQL('http://chat.fs.a-level.com.ua/graphql')
 
 export const promiseLoginTHC = (login, password) => {
     return promiseTHC('login', chatGQL(`
@@ -72,7 +72,11 @@ export const promiseGetChatsTHC = (myId) => {
     ChatFind(query: $id){
       _id createdAt lastModified title members {_id login} owner {_id login} messages {_id createdAt owner {login} text media {_id url}}
     }
-  }`, {ChatFind: '', id: JSON.stringify([{"members._id": myId}])}))
+  }`, {ChatFind: '', 
+  id: JSON.stringify([
+    {"members._id": myId}, 
+    {sort: [{lastModified: -1}]}
+  ])}))
 }
 
 export const promiseChatByIdTHC = (id) => {

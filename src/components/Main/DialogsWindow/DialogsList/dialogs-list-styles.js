@@ -27,7 +27,7 @@ const styles = {
         alignItems: 'center'
     },
     messageWrapper: {
-        maxWidth: '210px',
+        maxWidth: '160px',
         overflow: 'hidden'
     },
     message: {

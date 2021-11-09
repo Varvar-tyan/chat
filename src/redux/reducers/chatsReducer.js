@@ -16,7 +16,7 @@ export const chatsReducer = (state={}, action) => {
     return state
 }
 
-const setChatsAC = (chats) => ({type: 'SET_CHATS', chats})
+export const setChatsAC = (chats) => ({type: 'SET_CHATS', chats})
 const setChatAC = (chat) => ({type: 'SET_CHAT', chat})
 
 export const setChatsTHC = (myId) => {
