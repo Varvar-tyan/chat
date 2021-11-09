@@ -85,14 +85,21 @@ export const promiseChatByIdTHC = (id) => {
     }
   }`, {ChatFindOne: '', chatId: JSON.stringify([{_id: id}])}))
 }
-// const actionCategoryById = (_id) =>
-//     actionPromise('catById', shopGQL(`
-//     query catById($query:String){
-//         CategoryFindOne(query:$query){
-//         _id name goods{
-//             _id name price description images{
-//             url
-//             }
-//         }
-//         }
-//     }`, { CategoryFindOne: '', query: JSON.stringify([{ _id }]) }))
+
+export const promiseGetChatMessagesTHC = (chatId) => {
+  return promiseTHC('messages', chatGQL(`query FindMessages($chatId:String){
+    MessageFind(query: $chatId){
+      _id createdAt owner {_id login} text chat { _id title}
+    }
+  }`, {MessageFind: '', chatId: JSON.stringify([{"chat._id": chatId}])}))
+}
+
+export const promiseNewMessageTHC = (text, chatId) => {
+  return promiseTHC('newMessage', chatGQL(`mutation addMessage($text: String, $chatId: ID){
+    MessageUpsert(message:{
+      text: $text, chat: {_id: $chatId}
+    }){
+      _id chat {_id title} text
+    }
+  }`, { MessageUpsert: '', text, chatId}))
+}

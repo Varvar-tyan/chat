@@ -79,7 +79,6 @@ const NewChatDialog = (props) => {
 
     const handleDoneClick = async () => {
         let result = await props.createNewChat(title, memberId)
-        console.log(result)
 
         if (result._id) {
             onClose()

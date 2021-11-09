@@ -4,7 +4,6 @@ import styles from './dialogs-list-styles';
 import { connect } from 'react-redux';
 import { setChatsTHC } from '../../../../redux/reducers/chatsReducer';
 import Dialog from './Dialog';
-import { useHistory } from 'react-router';
 
 const DialogsList = (props) => {
     const [selectedIndex, setSelectedIndex] = useState('')
@@ -16,8 +15,6 @@ const DialogsList = (props) => {
     useEffect(() => {
         props.setChats(props.myId)
     }, [])
-
-    console.log(props)
 
     return (
         <Box sx={styles.dialogsListContainer}>
