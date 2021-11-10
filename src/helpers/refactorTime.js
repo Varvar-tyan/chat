@@ -8,6 +8,6 @@ export const refactorTime = (timestamp) => {
 
     let dayNow = new Date().getDate()
      return dayNow === day ?
-     `${hours}:${minutes.toString().length < 2 ? '0' + minutes : minutes}` :
-     `${day} ${months[month]} ${hours}:${minutes.toString().length < 2 ? '0' + minutes : minutes}`
+     `${hours.toString().length < 2 ? '0' + hours : hours}:${minutes.toString().length < 2 ? '0' + minutes : minutes}` :
+     `${day} ${months[month]} ${hours.toString().length < 2 ? '0' + hours : hours}:${minutes.toString().length < 2 ? '0' + minutes : minutes}`
 }

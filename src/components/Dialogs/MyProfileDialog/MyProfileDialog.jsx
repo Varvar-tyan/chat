@@ -6,6 +6,7 @@ import { Box, DialogActions, Divider, IconButton} from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import MyProfileDialogContent from './MyProfileDialogContent';
 
 const MyProfileDialog = ({onClose, open}) => {
     const handleCloseClick = () => {
@@ -27,7 +28,7 @@ const MyProfileDialog = ({onClose, open}) => {
             </Box>
             <Divider />
             <DialogContent>
-                ....
+                <MyProfileDialogContent />
             </DialogContent>
             <DialogActions>
                 <IconButton onClick={handleDoneClick}>
@@ -38,8 +39,4 @@ const MyProfileDialog = ({onClose, open}) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    myId: state.auth.payload.sub.id
-})
-
-export default connect(mapStateToProps)(MyProfileDialog);
+export default MyProfileDialog;

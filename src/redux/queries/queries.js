@@ -1,26 +1,40 @@
 import { promiseTHC } from "../reducers/promiseReducer"
 
+const uploadFile = file => {
+  let formData = new FormData()
+  formData.append('media', file)
+  return fetch('http://chat.fs.a-level.com.ua/upload', {
+    method: 'POST',
+    headers: localStorage.authToken ? { Authorization: 'Bearer ' + localStorage.authToken } : {},
+    body: formData
+  }).then(resp => resp.json())
+}
+
+export const promiseUploadFile = (file) => {
+  return promiseTHC('photo', uploadFile(file))
+}
+
 const getGQL = url => {
-    return function (query, variables = {}) {
-        return fetch(url,
-            {
-                method: "POST",
-                headers:
-                {
-                    "Content-Type": "application/json",
-                    ...(localStorage.authToken ? { Authorization: 'Bearer ' + localStorage.authToken } : {})
-                },
-                body: JSON.stringify({ query, variables })
-            }).then(resp => resp.json())
-            .then(data => {
-                if ("errors" in data) {
-                    throw new Error(JSON.stringify(data.errors, null, 4))
-                }
-                else {
-                    return data.data[Object.keys(variables)[0]]
-                }
-            })
-    }
+  return function (query, variables = {}) {
+      return fetch(url,
+          {
+              method: "POST",
+              headers:
+              {
+                  "Content-Type": "application/json",
+                  ...(localStorage.authToken ? { Authorization: 'Bearer ' + localStorage.authToken } : {})
+              },
+              body: JSON.stringify({ query, variables })
+          }).then(resp => resp.json())
+          .then(data => {
+              if ("errors" in data) {
+                  throw new Error(JSON.stringify(data.errors, null, 4))
+              }
+              else {
+                  return data.data[Object.keys(variables)[0]]
+              }
+          })
+  }
 }
 
 export const chatGQL = getGQL('http://chat.fs.a-level.com.ua/graphql')
@@ -106,4 +120,14 @@ export const promiseNewMessageTHC = (text, chatId) => {
       _id chat {_id title} text
     }
   }`, { MessageUpsert: '', text, chatId}))
+}
+
+export const promiseUserByIdTHC = (id) => {
+  return promiseTHC('userById', chatGQL(`query findUser($query: String){
+    UserFindOne(query: $query){
+      _id createdAt login nick avatar {
+        _id url
+      }
+    }
+  }`, {UserFindOne: '', query: JSON.stringify([{_id: id}])}))
 }
