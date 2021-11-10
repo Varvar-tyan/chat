@@ -1,5 +1,4 @@
-import { Avatar, Box, Typography } from '@mui/material';
-import { stringAvatar } from '../../../../helpers/stringToAvatarColor';
+import { Box, Typography } from '@mui/material';
 
 
 const ChatTitle = ({ currentChat }) => {

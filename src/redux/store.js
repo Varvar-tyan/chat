@@ -8,7 +8,7 @@ import { modeReducer } from './reducers/modeReducer';
 import { promiseReducer } from './reducers/promiseReducer';
 import { usersReducer } from './reducers/usersReducer';
 import { all } from 'redux-saga/effects';
-import { searchCheck} from './saga/searchSaga';
+import { searchChatsCheck, searchUsersCheck} from './saga/searchSaga';
 
 const reducers = combineReducers({
     promise: promiseReducer,
@@ -28,7 +28,8 @@ store.subscribe(() => console.log(store.getState()))
 
 function* rootSaga(){
     yield all([
-        searchCheck()
+        searchChatsCheck(),
+        searchUsersCheck()
     ])
 }
 

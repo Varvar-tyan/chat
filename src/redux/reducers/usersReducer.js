@@ -10,7 +10,7 @@ export const usersReducer = (state={}, action) => {
     return state
 }
 
-const setUsersAC = (users) => ({type: 'SET_USERS', users})
+export const setUsersAC = (users) => ({type: 'SET_USERS', users})
 
 export const setUsersTHC = () => {
     return async (dispatch) => {

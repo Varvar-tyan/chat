@@ -3,13 +3,15 @@ import MenuItem from '@mui/material/MenuItem';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { ListItemText, ListItemIcon, Switch, Box, Divider, IconButton } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { ListItemText, ListItemIcon, Switch } from '@mui/material';
 import { connect } from 'react-redux';
 import { setDarkModeAC } from '../../../../redux/reducers/modeReducer';
 import { logoutAC } from '../../../../redux/reducers/authReducer';
 import { useHistory } from 'react-router';
 import { useState } from 'react';
 import NewChatDialog from '../../../Dialogs/NewChatDialog/NewChatDialog';
+import MyProfileDialog from '../../../Dialogs/MyProfileDialog/MyProfileDialog';
 
 const MainMenu = ({ open, anchorEl, handleClose, isDarkMode, setMode, logout }) => {
     let history = useHistory()
@@ -26,6 +28,16 @@ const MainMenu = ({ open, anchorEl, handleClose, isDarkMode, setMode, logout }) 
     };
     const handleCloseNewChatDialog = () => {
         setOpenNewChatDialog(false)
+    };
+
+    const [openMyProfileDialog, setOpenMyProfileDialog] = useState(false)
+
+    const handleClickOpenMyProfileDialog = () => {
+        handleClose()
+        setOpenMyProfileDialog(true)
+    };
+    const handleCloseMyProfileDialog = () => {
+        setOpenMyProfileDialog(false)
     };
 
     return (
@@ -45,6 +57,12 @@ const MainMenu = ({ open, anchorEl, handleClose, isDarkMode, setMode, logout }) 
                     </ListItemIcon>
                     <ListItemText>New Chat</ListItemText>
                 </MenuItem>
+                <MenuItem onClick={handleClickOpenMyProfileDialog}>
+                    <ListItemIcon>
+                        <AccountCircleIcon />
+                    </ListItemIcon>
+                    <ListItemText>My Profile</ListItemText>
+                </MenuItem>
                 <MenuItem onClick={() => setMode(!isDarkMode)}>
                     <ListItemIcon>
                         <DarkModeIcon />
@@ -62,10 +80,11 @@ const MainMenu = ({ open, anchorEl, handleClose, isDarkMode, setMode, logout }) 
                     <ListItemIcon>
                         <LogoutIcon />
                     </ListItemIcon>
-                    <ListItemText>Logout</ListItemText>
+                    <ListItemText>Log Out</ListItemText>
                 </MenuItem>
             </Menu>
             <NewChatDialog onClose={handleCloseNewChatDialog} open={openNewChatDialog} />
+            <MyProfileDialog onClose={handleCloseMyProfileDialog} open={openMyProfileDialog} />
         </>
     )
 }
