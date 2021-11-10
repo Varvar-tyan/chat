@@ -10,7 +10,7 @@ export const messagesReducer = (state={}, action) => {
     return state
 }
 
-const setMessagesAC = (messages) => ({type: 'SET_MESSAGES', messages})
+export const setMessagesAC = (messages) => ({type: 'SET_MESSAGES', messages})
 
 export const setMessagesTHC = (chatId) => {
     return async (dispatch) => {

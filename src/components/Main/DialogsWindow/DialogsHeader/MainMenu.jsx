@@ -7,7 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ListItemText, ListItemIcon, Switch } from '@mui/material';
 import { connect } from 'react-redux';
 import { setDarkModeAC } from '../../../../redux/reducers/modeReducer';
-import { logoutAC } from '../../../../redux/reducers/authReducer';
+import { logoutTHC } from '../../../../redux/reducers/authReducer';
 import { useHistory } from 'react-router';
 import { useState } from 'react';
 import NewChatDialog from '../../../Dialogs/NewChatDialog/NewChatDialog';
@@ -93,4 +93,4 @@ const mapStateToProps = (state) => ({
     isDarkMode: state.mode.isDarkMode
 })
 
-export default connect(mapStateToProps, { setMode: setDarkModeAC, logout: logoutAC })(MainMenu);
+export default connect(mapStateToProps, { setMode: setDarkModeAC, logout: logoutTHC })(MainMenu);

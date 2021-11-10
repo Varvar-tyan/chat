@@ -15,9 +15,9 @@ const MyProfileDialogContent = ({ myProfile, myId, setMyProfile }) => {
     console.log(myProfile)
     return (
         <Box>
-            <Box sx={{ height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ height: '250px',  display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
                 {myProfile?.avatar ?
-                    <img src={'http://chat.fs.a-level.com.ua/' + myProfile.avatar.url} width='250' /> :
+                    <img src={'http://chat.fs.a-level.com.ua/' + myProfile.avatar.url} height='100%' /> :
                     <Chip label="No avatar" variant="filled" />}
             </Box>
             <Box>
@@ -54,7 +54,7 @@ const MyProfileDialogContent = ({ myProfile, myId, setMyProfile }) => {
                         sx={{py: 0}}
                     >
                         <InsertPhotoIcon fontSize="large" sx={{mr: 2.5}} />
-                        <Typography sx={{lineHeight: 2}}>Set Avatar</Typography>
+                        <Typography sx={{lineHeight: 2.3}}>Set Avatar</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Dropzone />

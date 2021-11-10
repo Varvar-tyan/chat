@@ -1,4 +1,7 @@
 import { promiseLoginTHC, promiseRegisterTHC } from "../queries/queries"
+import { setChatAC, setChatsAC } from "./chatsReducer"
+import { setMessagesAC } from "./messagesReducer"
+import { setMyProfileAC } from "./usersReducer"
 
 const jwt_decode = (jwt) => {
     let payload = jwt.split('.')
@@ -27,7 +30,7 @@ export function authReducer(state, action={}) {
 }
 
 const loginAC = (jwt) => ({type: 'LOGIN', jwt})
-export const logoutAC = () => ({type: 'LOGOUT'})
+const logoutAC = () => ({type: 'LOGOUT'})
 
 export const loginTHC = (login, password) => {
     return async (dispatch) => {
@@ -44,5 +47,15 @@ export const registerTHC = (login, password) => {
         if (payload) {
             dispatch(loginTHC(login, password))
         }
+    }
+}
+
+export const logoutTHC = () => {
+    return (dispatch) => {
+        dispatch(logoutAC())
+        dispatch(setChatsAC(null))
+        dispatch(setMyProfileAC(null))
+        dispatch(setChatAC(null))
+        dispatch(setMessagesAC(null))
     }
 }

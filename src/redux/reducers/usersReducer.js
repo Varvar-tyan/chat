@@ -1,4 +1,4 @@
-import { promiseGetUsersTHC, promiseUserByIdTHC } from "../queries/queries"
+import { promiseChangeAvatarTHC, promiseGetUsersTHC, promiseUploadFile, promiseUserByIdTHC } from "../queries/queries"
 
 export const usersReducer = (state={}, action) => {
     if (action.type === 'SET_USERS') {
@@ -17,7 +17,7 @@ export const usersReducer = (state={}, action) => {
 }
 
 export const setUsersAC = (users) => ({type: 'SET_USERS', users})
-const setMyProfileAC = (myProfile) => ({type: 'SET_MY_PROFILE', myProfile})
+export const setMyProfileAC = (myProfile) => ({type: 'SET_MY_PROFILE', myProfile})
 
 export const setUsersTHC = () => {
     return async (dispatch) => {
@@ -37,3 +37,14 @@ export const setMyProfileTHC = (myId) => {
         }
     }
 }
+
+export const setAvatarTHC = (file, myId)=> {
+    return async (dispatch) => {
+      let result = await dispatch(promiseUploadFile(file))
+  
+      if (result?._id) {
+        await dispatch(promiseChangeAvatarTHC(result._id, myId))
+        await dispatch(setMyProfileTHC(myId))
+      }
+    }
+  }

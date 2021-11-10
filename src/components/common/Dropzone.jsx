@@ -3,11 +3,12 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { connect } from 'react-redux';
 import { promiseUploadFile } from '../../redux/queries/queries';
+import { setAvatarTHC } from '../../redux/reducers/usersReducer';
 
-const Dropzone = ({handleDrop}) => {
+const Dropzone = ({handleDrop, myId}) => {
     const onDrop = useCallback(acceptedFiles => {
         console.log(acceptedFiles)
-        handleDrop(acceptedFiles[0])
+        handleDrop(acceptedFiles[0], myId)
       }, [])
       const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
     
@@ -23,4 +24,8 @@ const Dropzone = ({handleDrop}) => {
       )
 }
 
-export default connect(null, {handleDrop: promiseUploadFile})(Dropzone);
+const mapStateToProps = (state) => ({
+    myId: state.auth.payload.sub.id
+})
+
+export default connect(mapStateToProps, {handleDrop: setAvatarTHC})(Dropzone);

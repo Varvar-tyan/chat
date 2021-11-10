@@ -131,3 +131,14 @@ export const promiseUserByIdTHC = (id) => {
     }
   }`, {UserFindOne: '', query: JSON.stringify([{_id: id}])}))
 }
+
+export const promiseChangeAvatarTHC = (avatarId, myId) => {
+  return promiseTHC('setAvatar', chatGQL(`mutation setAvatar($myId: ID, $avatarId: ID){
+    UserUpsert(user:{_id: $myId, avatar: {_id: $avatarId}}){
+        _id, avatar{
+            _id
+        }
+      }
+    }`, {UserUpsert: '', avatarId, myId}))
+}
+    
