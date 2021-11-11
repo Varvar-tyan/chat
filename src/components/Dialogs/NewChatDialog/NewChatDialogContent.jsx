@@ -4,11 +4,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useEffect, useRef, useState } from 'react';
 import styles from './new-chat-styles'
 import { connect } from 'react-redux';
-import { setUsersTHC } from '../../../redux/reducers/usersReducer';
+import { loadMoreUsersTHC, setTotalUsersCountTHC, setUsersSkipAC, setUsersTHC } from '../../../redux/reducers/usersReducer';
 import User from './User';
 import { actionSearchUsers } from '../../../redux/saga/searchSaga';
 
-const NewChatDialogContent = ({users, setUsers, searchUsers, ...props}) => {
+const NewChatDialogContent = ({users, usersSkip, totalUsersCount, setUsers, searchUsers, loadUsers, setTotalUsers, ...props}) => {
     const [searchRequest, setSearchRequest] = useState('')
     const handleChange = (e) => {
         setSearchRequest(e.target.value)
@@ -22,12 +22,16 @@ const NewChatDialogContent = ({users, setUsers, searchUsers, ...props}) => {
             const {scrollTop, scrollHeight, clientHeight} = listInnerRef.current
             if (scrollTop + clientHeight > (scrollHeight - 1) && searchRequest.length <= 0) {
                 console.log('scrolled to bottom')
+                if (users.length < totalUsersCount) {
+                    loadUsers(usersSkip)
+                }
             }
         }
     }
 
     useEffect(() => {
-        setUsers()
+        setTotalUsers()
+        setUsers(0)
     }, [])
 
     return (
@@ -54,4 +58,10 @@ const NewChatDialogContent = ({users, setUsers, searchUsers, ...props}) => {
     )
 }
 
-export default connect((state) => ({users: state.users.users}), {setUsers: setUsersTHC, searchUsers: actionSearchUsers})(NewChatDialogContent);
+const mapStateToProps = (state) => ({
+    users: state.users.users,
+    usersSkip: state.users.usersSkip,
+    totalUsersCount: state.users.totalUsersCount
+})
+
+export default connect(mapStateToProps, {setUsers: setUsersTHC, searchUsers: actionSearchUsers, loadUsers: loadMoreUsersTHC, setTotalUsers: setTotalUsersCountTHC})(NewChatDialogContent);

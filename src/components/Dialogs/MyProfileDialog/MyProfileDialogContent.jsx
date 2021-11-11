@@ -15,10 +15,25 @@ const MyProfileDialogContent = ({ myProfile, myId, setMyProfile }) => {
     console.log(myProfile)
     return (
         <Box>
-            <Box sx={{ height: '250px',  display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+            <Box sx={{ height: '250px',  display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden', mb: 1 }}>
                 {myProfile?.avatar ?
                     <img src={'http://chat.fs.a-level.com.ua/' + myProfile.avatar.url} height='100%' /> :
                     <Chip label="No avatar" variant="filled" />}
+            </Box>
+            <Box>
+                <Accordion disableGutters square>
+                    <AccordionSummary
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                        sx={{py: 0}}
+                    >
+                        <InsertPhotoIcon fontSize="large" sx={{mr: 2.5}} />
+                        <Typography sx={{lineHeight: 2.3}}>Set Avatar</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Dropzone />
+                    </AccordionDetails>
+                </Accordion>
             </Box>
             <Box>
                 <List sx={{pl: 2}}>
@@ -45,21 +60,6 @@ const MyProfileDialogContent = ({ myProfile, myId, setMyProfile }) => {
                         </ListItemText>
                     </ListItem>
                 </List>
-            </Box>
-            <Box>
-                <Accordion disableGutters square>
-                    <AccordionSummary
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                        sx={{py: 0}}
-                    >
-                        <InsertPhotoIcon fontSize="large" sx={{mr: 2.5}} />
-                        <Typography sx={{lineHeight: 2.3}}>Set Avatar</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Dropzone />
-                    </AccordionDetails>
-                </Accordion>
             </Box>
 
         </Box>

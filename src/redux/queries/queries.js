@@ -56,7 +56,7 @@ export const promiseRegisterTHC = (login, password) => {
         { UserUpsert: '', login, password }))
 }
 
-export const promiseGetUsersTHC = () => {
+export const promiseGetUsersTHC = (skip) => {
     return promiseTHC('users', chatGQL(`query findUsers($query:String){
         UserFind(query: $query){
           _id login nick avatar {
@@ -64,7 +64,7 @@ export const promiseGetUsersTHC = () => {
           }
         }
       }`,
-      {UserFind: '', query: JSON.stringify([{ }, {skip: [0]}])}))
+      {UserFind: '', query: JSON.stringify([{ }, {skip: [skip]}])}))
 }
 
 export const promiseNewChatTHC = (title, _id) => {
@@ -140,5 +140,11 @@ export const promiseChangeAvatarTHC = (avatarId, myId) => {
         }
       }
     }`, {UserUpsert: '', avatarId, myId}))
+}
+
+export const promiseGetTotalUsersCount = () => {
+  return promiseTHC('totalUsersCount', chatGQL(`query totalUsersCount{
+    UserCount(query: "[{}]")
+  }`, {UserCount: ''}))
 }
     
