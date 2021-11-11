@@ -57,14 +57,14 @@ export const promiseRegisterTHC = (login, password) => {
 }
 
 export const promiseGetUsersTHC = () => {
-    return promiseTHC('users', chatGQL(`query findUsers{
-        UserFind(query: "[{}]"){
+    return promiseTHC('users', chatGQL(`query findUsers($query:String){
+        UserFind(query: $query){
           _id login nick avatar {
             _id url
           }
         }
       }`,
-      {UserFind: ''}))
+      {UserFind: '', query: JSON.stringify([{ }, {skip: [0]}])}))
 }
 
 export const promiseNewChatTHC = (title, _id) => {

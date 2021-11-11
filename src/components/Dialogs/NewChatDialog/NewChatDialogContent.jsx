@@ -1,7 +1,7 @@
 import { Box, List, TextField } from '@mui/material';
 import { Search, SearchIconWrapper, StyledInputBase } from '../../common/Search';
 import SearchIcon from '@mui/icons-material/Search';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './new-chat-styles'
 import { connect } from 'react-redux';
 import { setUsersTHC } from '../../../redux/reducers/usersReducer';
@@ -13,6 +13,17 @@ const NewChatDialogContent = ({users, setUsers, searchUsers, ...props}) => {
     const handleChange = (e) => {
         setSearchRequest(e.target.value)
         searchUsers(e.target.value)
+    }
+
+    const listInnerRef = useRef()
+    const onScroll = () => {
+        // console.log('scrollHeight: ', listInnerRef.current.scrollHeight, 'top: ', listInnerRef.current.scrollTop, 'client: ', listInnerRef.current.clientHeight )
+        if (listInnerRef.current) {
+            const {scrollTop, scrollHeight, clientHeight} = listInnerRef.current
+            if (scrollTop + clientHeight > (scrollHeight - 1) && searchRequest.length <= 0) {
+                console.log('scrolled to bottom')
+            }
+        }
     }
 
     useEffect(() => {
@@ -33,7 +44,7 @@ const NewChatDialogContent = ({users, setUsers, searchUsers, ...props}) => {
                     onChange={handleChange}
                 />
             </Search>
-            <Box sx={styles.usersListContainer}>
+            <Box sx={styles.usersListContainer} onScroll={() => onScroll()} ref={listInnerRef}>
                 <List disablePadding sx={{mb: 0}}>
                     {users?.filter((user) => !!user.login)
                     .map((user) => <User key={user._id} selectedIndex={props.memberId} handleListItemClick={(index) => props.setMemberId(index)} {...user}/>)}
