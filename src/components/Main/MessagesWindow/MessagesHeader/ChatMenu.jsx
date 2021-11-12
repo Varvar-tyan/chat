@@ -50,6 +50,14 @@ const ChatMenu = ({open, anchorEl, handleClose}) => {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
             >
                 <MenuItem onClick={() => {
                     handleClose()
