@@ -12,9 +12,9 @@ export const messagesReducer = (state={}, action) => {
 
 export const setMessagesAC = (messages) => ({type: 'SET_MESSAGES', messages})
 
-export const setMessagesTHC = (chatId) => {
+export const setMessagesTHC = (chatId, skip) => {
     return async (dispatch) => {
-        let messages = await dispatch(promiseGetChatMessagesTHC(chatId))
+        let messages = await dispatch(promiseGetChatMessagesTHC(chatId, skip))
         if(messages) {
             return dispatch(setMessagesAC(messages))
         }

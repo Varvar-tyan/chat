@@ -104,12 +104,12 @@ export const promiseChatByIdTHC = (id) => {
   }`, {ChatFindOne: '', chatId: JSON.stringify([{_id: id}])}))
 }
 
-export const promiseGetChatMessagesTHC = (chatId) => {
+export const promiseGetChatMessagesTHC = (chatId, skip) => {
   return promiseTHC('messages', chatGQL(`query FindMessages($chatId:String){
     MessageFind(query: $chatId){
       _id createdAt owner {_id login} text chat { _id title}
     }
-  }`, {MessageFind: '', chatId: JSON.stringify([{"chat._id": chatId}])}))
+  }`, {MessageFind: '', chatId: JSON.stringify([{"chat._id": chatId}, {sort: [{_id: -1}], skip: [skip]}])}))
 }
 
 export const promiseNewMessageTHC = (text, chatId) => {
@@ -147,4 +147,6 @@ export const promiseGetTotalUsersCount = () => {
     UserCount(query: "[{}]")
   }`, {UserCount: ''}))
 }
+
+
     

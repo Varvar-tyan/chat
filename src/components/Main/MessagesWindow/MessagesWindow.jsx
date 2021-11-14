@@ -9,7 +9,7 @@ import MessagesList from './MessagesList/MessagesList';
 const MessagesWindow = ({match: {params: {id}}, setChat, myId, currentChat, setMessages, messages}) => {
     useEffect(() => {
         setChat(id) 
-        setMessages(id)
+        setMessages(id, 0)
     }, [id])
     return (
         <Grid item xs={12} md={8.5} sx={{display: 'flex', flexDirection: 'column'}}>

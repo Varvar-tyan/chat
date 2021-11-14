@@ -11,8 +11,8 @@ const Dialog = ({chat: {lastModified, ...chat}, setMessages, ...props}) => {
     const [lastMessage, setLastMessage] = useState('')
 
     useEffect(async () => {
-        const messagesResult = await setMessages(chat._id)
-        setLastMessage(messagesResult[messagesResult.length-1]?.text)
+        const messagesResult = await setMessages(chat._id, 0)
+        setLastMessage(messagesResult[0]?.text)
     }, [lastModified])
 
     return (

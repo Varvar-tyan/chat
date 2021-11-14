@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { refactorTime } from '../../../../helpers/refactorTime';
 import { setMessagesTHC } from '../../../../redux/reducers/messagesReducer';
 import { promiseNewMessageTHC } from '../../../../redux/queries/queries';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { setChatsTHC } from '../../../../redux/reducers/chatsReducer';
 
 const Message = ({ message, myId }) => {
@@ -35,17 +35,28 @@ const MessagesList = ({ isDarkMode, myId, messages, setMessages, addMessage, cha
             let result = await addMessage(messageText, chatId)
             
             if (result?._id) {
-                setMessages(chatId)
+                setMessages(chatId, 0)
                 setMessageText('')
                 setChats(myId)
             }
         }
     }
 
+    const listInnerRef = useRef()
+    const onScroll = () => {
+        console.log('scrollHeight: ', listInnerRef.current.scrollHeight, 'top: ', listInnerRef.current.scrollTop, 'client: ', listInnerRef.current.clientHeight )
+        if (listInnerRef.current) {
+            const {scrollTop, scrollHeight, clientHeight} = listInnerRef.current
+            if (clientHeight + Math.abs(scrollTop) > (scrollHeight - 1)) {
+                console.log('scrolled to top')
+            }
+        }
+    }
+
     return (
         <>
-            <Box sx={{ ...styles.messageWindowMessagesContainer, backgroundImage: `url(${isDarkMode ? imageDark : imageDoom})`, }}>
-                <List>
+            <Box sx={{ ...styles.messageWindowMessagesContainer, backgroundImage: `url(${isDarkMode ? imageDark : imageDoom})`}} ref={listInnerRef} onScroll={() => onScroll()} >
+                <List sx={{display: 'flex', flexDirection: 'column-reverse'}}>
                     {messages?.length > 0 ?
                         messages.map((message) => <Message message={message} myId={myId} key={message._id} />) :
                         <div style={{ textAlign: 'center', marginBottom: '10px' }}><Chip label="No messages here :(" variant="filled" sx={{ color: '#fff' }} /></div>}

@@ -2,7 +2,6 @@ import { Box, Typography } from '@mui/material';
 
 
 const ChatTitle = ({ currentChat }) => {
-    console.log(currentChat)
     return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box>
